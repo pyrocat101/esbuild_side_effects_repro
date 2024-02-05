@@ -1,0 +1,16 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+
+npm_link_all_packages(name = "node_modules")
+
+esbuild(
+    name = "bundle",
+    srcs = ["index.js"],
+    entry_point = "index.js",
+    format = "esm",
+    sourcemap = False,
+    target = "node18",
+    deps = [
+        "//:node_modules/lodash-es",
+    ],
+)
